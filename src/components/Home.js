@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
-export default function(props) {
+export default function() {
   return <h3>Welcome!</h3>;
 }
