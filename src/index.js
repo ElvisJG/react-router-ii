@@ -4,11 +4,23 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Trinkets from './components/Trinkets';
 import Trinket from './components/Trinket';
-import './styles.css';
 import data from './data';
+import './styles.css';
 
 class App extends React.Component {
+  state = {
+    items: []
+  };
+
+  componentDidMount() {
+    this.setState({
+      items: data
+    });
+  }
+
   render() {
+    const { items } = this.state;
+
     return (
       <div className='App'>
         <nav>
@@ -19,16 +31,19 @@ class App extends React.Component {
           </div>
         </nav>
 
-        <Route path='/' exact render={() => <Home items={data} />} />
+        <Route
+          path='/'
+          exact
+          render={props => <Home {...props} items={items} />}
+        />
         <Route
           path='/trinkets'
           exact
-          render={props => <Trinket {...props} item={data} />}
+          render={props => <Trinkets {...props} items={items} />}
         />
         <Route
           path='/trinket/:id'
-          exact
-          render={props => <Trinkets {...props} items={data} />}
+          render={props => <Trinket {...props} items={items} />}
         />
       </div>
     );
